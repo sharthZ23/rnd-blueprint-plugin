@@ -24,6 +24,8 @@
     "developerName": "Даниил Московский",
     "category": "Productivity",
     "websiteURL": "https://github.com/sharthZ23/rnd-blueprint-plugin",
+    "privacyPolicyURL": "https://github.com/sharthZ23/rnd-blueprint-plugin/blob/main/PRIVACY.md",
+    "termsOfServiceURL": "https://github.com/sharthZ23/rnd-blueprint-plugin/blob/main/TERMS.md",
     "capabilities": [
       "Research",
       "Planning",
