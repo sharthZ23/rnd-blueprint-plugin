@@ -1,0 +1,41 @@
+{
+  "name": "rnd-blueprint",
+  "version": "0.1.0",
+  "description": "Spec-driven research workflows that turn technical ideas into evidence-backed design blueprints.",
+  "author": {
+    "name": "Даниил Московский",
+    "url": "https://github.com/sharthZ23"
+  },
+  "homepage": "https://github.com/sharthZ23/rnd-blueprint-plugin#readme",
+  "repository": "https://github.com/sharthZ23/rnd-blueprint-plugin",
+  "license": "MIT",
+  "keywords": [
+    "research",
+    "spec-driven",
+    "design-blueprint",
+    "architecture",
+    "benchmarking"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "R&D Blueprint",
+    "shortDescription": "Research ideas into verified design blueprints",
+    "longDescription": "An OpenSpec-inspired workflow for exploring technical ideas, maintaining evidence and delta specifications, recording architecture decisions, designing falsifiable benchmarks, and compiling implementation-ready blueprints.",
+    "developerName": "Даниил Московский",
+    "category": "Productivity",
+    "websiteURL": "https://github.com/sharthZ23/rnd-blueprint-plugin",
+    "capabilities": [
+      "Research",
+      "Planning",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Исследуй идею и собери design blueprint.",
+      "Продолжи последнее R&D-исследование.",
+      "Проведи red-team текущей архитектуры."
+    ],
+    "brandColor": "#2563EB",
+    "composerIcon": "./assets/icon.svg",
+    "logo": "./assets/icon.svg"
+  }
+}
