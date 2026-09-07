@@ -32,7 +32,7 @@ Start a new chat after installation so the skill is loaded. Example prompts:
 
 ## Using it on Android
 
-The repository is an installation source, not an Android deep link. Import the plugin on desktop first, then use the plugin's **Share** or workspace publication flow in ChatGPT Desktop so that it becomes available to the same ChatGPT account on mobile. Do not open `codex://plugins/...marketplacePath=...` links on Android: those refer to a desktop-local marketplace path.
+The repository is a development and installation source, not an Android deep link. The public release is distributed through the universal Plugins Directory shared by ChatGPT and Codex. Until review and publication are complete, use the repository marketplace from Codex on a computer.
 
 ## Repository layout
 
@@ -62,3 +62,9 @@ python3 plugins/rnd-blueprint/skills/research-to-blueprint/scripts/validate_rnd_
 ## License
 
 MIT
+
+## Policies and support
+
+- [Privacy policy](PRIVACY.md)
+- [Terms of service](TERMS.md)
+- [Support](SUPPORT.md)
