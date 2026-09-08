@@ -12,6 +12,7 @@ rnd/
 │       ├── proposal.md
 │       ├── evidence.csv
 │       ├── design.md
+│       ├── agent-contract.md
 │       ├── decisions.md
 │       ├── benchmarks.md
 │       ├── tasks.md
@@ -26,16 +27,20 @@ rnd/
 Required fields:
 
 ```yaml
-schema_version: 1
+schema_version: 2
 project: Example project
 slug: example-project
 status: exploring
 language: en
 source_of_truth: rnd/specs
 active_change: initial-blueprint
+primary_consumer: both
+delivery_mode: undecided
 ```
 
 Allowed status values: `exploring`, `proposed`, `researching`, `verified`, `archived`, `paused`.
+
+Allowed `primary_consumer` values: `human`, `agent`, `both`. Allowed `delivery_mode` values: `undecided`, `library`, `skill`, `tool`, `service`, `dsl`, `generated`, `hybrid`. Version 1 workspaces remain readable; upgrade them when the active change makes an implementation-facing decision.
 
 ## `proposal.md`
 
@@ -98,6 +103,25 @@ Include only relevant sections, but cover:
 - compatibility, migration, packaging, and security where applicable;
 - rejected shortcuts and known limits.
 
+## `agent-contract.md`
+
+Required for schema version 2. For a non-executable research result, state why no agent execution surface is warranted instead of inventing one.
+
+Required sections:
+
+- Primary consumer and jobs;
+- Expensive-to-rediscover knowledge;
+- Reuse-versus-generation boundary;
+- Delivery mode decision;
+- Capability contracts;
+- Discovery and progressive disclosure;
+- Composition and state;
+- Verification and comparison.
+
+For each public agent capability, record its intent, activation conditions, typed inputs and outputs, preconditions, invariants, side effects, cost, failure modes, oracle, and composition links where relevant. Omit fields that do not affect selection or safe use.
+
+The reuse-versus-generation boundary must classify stable kernels, operational knowledge, generated task-specific glue, and external execution. A component belongs in the stable kernel only when reuse or expensive verification justifies it.
+
 ## `decisions.md`
 
 Each decision has:
@@ -131,6 +155,8 @@ Every benchmark case records:
 - ablations and sensitivity checks;
 - failure interpretation and the decision it would reopen;
 - reproducible command or notebook target.
+
+When reuse versus generation is a central decision, include matched regimes for requirements-only generation, conventional library use, skill-assisted reuse, and the proposed hybrid. Measure correctness and intervention as well as tokens and runtime.
 
 ## `tasks.md`
 

@@ -12,13 +12,14 @@ The blueprint is a decision document for future implementation and experimentati
 6. Requirements and representative scenarios
 7. Architecture and component boundaries
 8. Public API and data contracts
-9. Alternatives, ADRs, and trade-offs
-10. Performance, correctness, and benchmark program
-11. Reliability, reproducibility, compatibility, and security
-12. Risks, hypotheses, and open questions
-13. Implementation roadmap and release slices
-14. Verification report
-15. References
+9. Agent-native delivery and reuse-versus-generation boundary
+10. Alternatives, ADRs, and trade-offs
+11. Performance, correctness, and benchmark program
+12. Reliability, reproducibility, compatibility, and security
+13. Risks, hypotheses, and open questions
+14. Implementation roadmap and release slices
+15. Verification report
+16. References
 
 Change the order when it improves the story, but do not omit a relevant concern silently.
 
@@ -38,6 +39,16 @@ Change the order when it improves the story, but do not omit a relevant concern 
 - Data ownership, mutability, copying, streaming, concurrency, and serialization are explicit where relevant.
 - Versioning and compatibility strategy match the proposed maturity level.
 
+### Agent-native delivery
+
+- The primary consumer is identified as a human, agent, or both.
+- A library is compared with skill, tool/service, DSL/IR, generated code, and hybrid delivery where relevant.
+- Expensive-to-rediscover or reverify knowledge is separated from cheap task-specific adaptation.
+- Stable capabilities expose selection conditions, typed contracts, invariants, side effects, failure modes, and an oracle where these affect safe use.
+- Instructions are progressively disclosed; ordinary syntax is not duplicated as prose.
+- Long-running work has explicit structured state and durable artifacts rather than relying on chat history.
+- Interoperability is defined through artifacts, protocols, or a minimal IR instead of an unnecessary shared framework.
+
 ### Evidence and decisions
 
 - Central claims have primary citations or are labeled inference/hypothesis.
@@ -53,6 +64,7 @@ Change the order when it improves the story, but do not omit a relevant concern 
 - Correctness and performance are evaluated separately.
 - Metrics, thresholds, repetitions, seeds, runtime, and hardware are specified.
 - The plan states which decision changes for each meaningful failure.
+- Agent-facing systems compare reuse and generation under matched conditions; token cost is not used as the sole success metric.
 
 ### Roadmap
 

@@ -34,6 +34,16 @@ def main() -> int:
     parser.add_argument("--slug", type=valid_slug)
     parser.add_argument("--change", type=valid_slug, default="initial-blueprint")
     parser.add_argument("--language", default="en")
+    parser.add_argument(
+        "--primary-consumer",
+        choices=("human", "agent", "both"),
+        default="both",
+    )
+    parser.add_argument(
+        "--delivery-mode",
+        choices=("undecided", "library", "skill", "tool", "service", "dsl", "generated", "hybrid"),
+        default="undecided",
+    )
     args = parser.parse_args()
 
     root = args.project_root.expanduser().resolve()
@@ -53,13 +63,15 @@ def main() -> int:
 
     write_new(
         rnd / "project.yaml",
-        f"""schema_version: 1
+        f"""schema_version: 2
 project: {args.project}
 slug: {slug}
 status: proposed
 language: {args.language}
 source_of_truth: rnd/specs
 active_change: {args.change}
+primary_consumer: {args.primary_consumer}
+delivery_mode: {args.delivery_mode}
 created_at: {now}
 updated_at: {now}
 """,
@@ -101,11 +113,44 @@ updated_at: {now}
 
 ## Public API and data contracts
 
+## Agent-native delivery
+
+## Reuse-versus-generation boundary
+
 ## Extension points
 
 ## Failure model and observability
 
 ## Known limits
+""",
+    )
+    write_new(
+        change / "agent-contract.md",
+        """# Agent contract
+
+## Primary consumer and jobs
+
+## Expensive-to-rediscover knowledge
+
+## Reuse-versus-generation boundary
+
+### Stable kernel
+
+### Operational knowledge
+
+### Generated shell
+
+### External execution
+
+## Delivery mode decision
+
+## Capability contracts
+
+## Discovery and progressive disclosure
+
+## Composition and state
+
+## Verification and comparison
 """,
     )
     write_new(
@@ -143,6 +188,8 @@ Evidence:
 
 ## Correctness oracle
 
+## Reuse-versus-generation regimes
+
 ## Reproducibility protocol
 
 ## Ablations and sensitivity
@@ -156,6 +203,7 @@ Evidence:
 
 - [ ] R1 Complete the evidence matrix — output: evidence.csv
 - [ ] D1 Resolve the initial architecture direction — acceptance: ADR-001 accepted
+- [ ] D2 Decide the delivery mode and generation boundary — acceptance: agent-contract.md complete
 - [ ] V1 Run strict blueprint verification — output: rnd/verification.md
 """,
     )

@@ -1,7 +1,7 @@
 {
   "name": "rnd-blueprint",
-  "version": "0.1.0",
-  "description": "Spec-driven research workflows that turn technical ideas into evidence-backed design blueprints.",
+  "version": "0.2.0",
+  "description": "Spec-driven research workflows for evidence-backed, agent-native design blueprints.",
   "author": {
     "name": "Даниил Московский",
     "url": "https://github.com/sharthZ23"
@@ -14,13 +14,15 @@
     "spec-driven",
     "design-blueprint",
     "architecture",
-    "benchmarking"
+    "benchmarking",
+    "agent-native",
+    "generative-software"
   ],
   "skills": "./skills/",
   "interface": {
     "displayName": "R&D Blueprint",
-    "shortDescription": "Research ideas into verified design blueprints",
-    "longDescription": "An OpenSpec-inspired workflow for exploring technical ideas, maintaining evidence and delta specifications, recording architecture decisions, designing falsifiable benchmarks, and compiling implementation-ready blueprints.",
+    "shortDescription": "Design verified, agent-native technical systems",
+    "longDescription": "An OpenSpec-inspired workflow for evidence-backed blueprints that decides what to reuse, expose as a skill or tool, encode as a DSL, or generate per task, with explicit agent contracts and falsifiable benchmarks.",
     "developerName": "Даниил Московский",
     "category": "Productivity",
     "websiteURL": "https://github.com/sharthZ23/rnd-blueprint-plugin",
@@ -32,9 +34,9 @@
       "Write"
     ],
     "defaultPrompt": [
-      "Исследуй идею и собери design blueprint.",
-      "Продолжи последнее R&D-исследование.",
-      "Проведи red-team текущей архитектуры."
+      "Исследуй идею и собери agent-native design blueprint.",
+      "Реши, что переиспользовать, а что генерировать под задачу.",
+      "Продолжи последнее R&D-исследование."
     ],
     "brandColor": "#2563EB",
     "composerIcon": "./assets/icon.svg",

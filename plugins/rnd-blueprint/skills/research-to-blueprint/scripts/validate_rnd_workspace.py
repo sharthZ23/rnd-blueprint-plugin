@@ -17,6 +17,7 @@ REQUIRED_CHANGE_FILES = (
     "benchmarks.md",
     "tasks.md",
 )
+V2_CHANGE_FILES = ("agent-contract.md",)
 EVIDENCE_COLUMNS = {
     "id",
     "claim",
@@ -36,11 +37,47 @@ VALID_EVIDENCE_STATUS = {
     "decision",
     "disputed",
 }
+VALID_PRIMARY_CONSUMERS = {"human", "agent", "both"}
+VALID_DELIVERY_MODES = {
+    "undecided",
+    "library",
+    "skill",
+    "tool",
+    "service",
+    "dsl",
+    "generated",
+    "hybrid",
+}
+AGENT_CONTRACT_SECTIONS = (
+    "## Primary consumer and jobs",
+    "## Expensive-to-rediscover knowledge",
+    "## Reuse-versus-generation boundary",
+    "## Delivery mode decision",
+    "## Capability contracts",
+    "## Discovery and progressive disclosure",
+    "## Composition and state",
+    "## Verification and comparison",
+)
 
 
 def manifest_value(text: str, key: str) -> str | None:
     match = re.search(rf"^{re.escape(key)}:\s*(.+?)\s*$", text, re.MULTILINE)
     return match.group(1).strip("\"'") if match else None
+
+
+def markdown_section_has_content(text: str, heading: str) -> bool:
+    match = re.search(rf"^{re.escape(heading)}\s*$", text, re.MULTILINE)
+    if not match:
+        return False
+    tail = text[match.end() :]
+    next_section = re.search(r"^##(?!#)\s+", tail, re.MULTILINE)
+    body = tail[: next_section.start()] if next_section else tail
+    return any(
+        line.strip()
+        and not line.lstrip().startswith("#")
+        and line.strip() not in {"```", "```yaml", "```json"}
+        for line in body.splitlines()
+    )
 
 
 def main() -> int:
@@ -60,6 +97,27 @@ def main() -> int:
     else:
         manifest_text = manifest.read_text(encoding="utf-8")
 
+    schema_raw = manifest_value(manifest_text, "schema_version")
+    try:
+        schema_version = int(schema_raw) if schema_raw is not None else 1
+    except ValueError:
+        failures.append(f"project.yaml has invalid schema_version: {schema_raw}")
+        schema_version = 1
+
+    delivery_mode = manifest_value(manifest_text, "delivery_mode")
+    if schema_version >= 2:
+        primary_consumer = manifest_value(manifest_text, "primary_consumer")
+        if primary_consumer not in VALID_PRIMARY_CONSUMERS:
+            failures.append(
+                "project.yaml primary_consumer must be one of "
+                f"{sorted(VALID_PRIMARY_CONSUMERS)}"
+            )
+        if delivery_mode not in VALID_DELIVERY_MODES:
+            failures.append(
+                "project.yaml delivery_mode must be one of "
+                f"{sorted(VALID_DELIVERY_MODES)}"
+            )
+
     active_change = manifest_value(manifest_text, "active_change")
     if not active_change:
         failures.append("project.yaml has no active_change")
@@ -74,7 +132,8 @@ def main() -> int:
             failures.append(f"missing directory: {directory}")
 
     if change and change.is_dir():
-        for name in REQUIRED_CHANGE_FILES:
+        required_files = REQUIRED_CHANGE_FILES + (V2_CHANGE_FILES if schema_version >= 2 else ())
+        for name in required_files:
             if not (change / name).is_file():
                 failures.append(f"missing change artifact: {name}")
         if not (change / "specs").is_dir():
@@ -110,7 +169,25 @@ def main() -> int:
             if not re.search(r"\b(?:SHALL|MUST)\b", text):
                 failures.append(f"spec lacks SHALL/MUST contract language: {spec}")
 
+        agent_contract = change / "agent-contract.md"
+        if schema_version >= 2 and agent_contract.is_file():
+            agent_text = agent_contract.read_text(encoding="utf-8")
+            for section in AGENT_CONTRACT_SECTIONS:
+                if section not in agent_text:
+                    failures.append(f"agent-contract.md missing section: {section}")
+                elif args.strict and not markdown_section_has_content(agent_text, section):
+                    failures.append(f"strict: agent-contract.md empty section: {section}")
+
+        benchmarks = change / "benchmarks.md"
+        if schema_version >= 2 and args.strict and benchmarks.is_file():
+            regime_section = "## Reuse-versus-generation regimes"
+            benchmark_text = benchmarks.read_text(encoding="utf-8")
+            if not markdown_section_has_content(benchmark_text, regime_section):
+                failures.append(f"strict: benchmarks.md empty section: {regime_section}")
+
     if args.strict:
+        if schema_version >= 2 and delivery_mode == "undecided":
+            failures.append("strict: delivery_mode is still undecided")
         if warnings:
             failures.extend(f"strict: {warning}" for warning in warnings)
         for name in ("blueprint.md", "verification.md"):

@@ -1,4 +1,4 @@
 interface:
   display_name: "R&D Blueprint"
-  short_description: "Turn research ideas into verified design blueprints"
-  default_prompt: "Explore an idea and turn it into a spec-driven R&D blueprint."
+  short_description: "Design verified, agent-native technical systems"
+  default_prompt: "Explore an idea and turn it into an agent-native, spec-driven R&D blueprint."

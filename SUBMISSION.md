@@ -1,12 +1,12 @@
 # OpenAI Plugin Submission Notes
 
-This file contains reviewer-ready copy for the initial public submission of the skills-only R&D Blueprint plugin.
+This file contains reviewer-ready copy for the public submission and updates of the skills-only R&D Blueprint plugin.
 
 ## Listing
 
 - **Plugin name:** R&D Blueprint
-- **Short description:** Turn research ideas into verified design blueprints.
-- **Long description:** R&D Blueprint turns an uncertain technical or scientific idea into a traceable, implementation-ready design blueprint. Its OpenSpec-inspired workflow separates current specifications from proposed changes, records evidence and architecture decisions, designs falsifiable benchmarks, identifies risks and hypotheses, and produces a verification report and roadmap. Use Explore, Propose, Continue, Challenge, Verify, or Archive depending on the project's current state.
+- **Short description:** Design verified, agent-native technical systems.
+- **Long description:** R&D Blueprint turns an uncertain technical or scientific idea into a traceable, agent-native design blueprint. Its OpenSpec-inspired workflow separates current specifications from proposed changes, records evidence and decisions, compares library, skill, tool/service, DSL, generated, and hybrid delivery, separates stable verified kernels from generated task-specific glue, and designs falsifiable benchmarks. Use Explore, Propose, Continue, Challenge, Verify, or Archive depending on the project's current state.
 - **Category:** Productivity
 - **Website:** https://github.com/sharthZ23/rnd-blueprint-plugin
 - **Support:** https://github.com/sharthZ23/rnd-blueprint-plugin/issues
@@ -15,10 +15,11 @@ This file contains reviewer-ready copy for the initial public submission of the 
 
 ## Starter prompts
 
-1. Исследуй идею библиотеки для инкрементальных вычислений и собери полный design blueprint.
+1. Исследуй идею и собери agent-native design blueprint.
 2. Продолжи последнее R&D-исследование с сохранённого change package.
 3. Проведи red-team текущей архитектуры и предложи условия пересмотра решений.
 4. Проверь blueprint перед началом реализации и перечисли блокирующие пробелы.
+5. Реши, что в системе переиспользовать, а что генерировать под задачу.
 
 ## Positive test cases
 
@@ -64,6 +65,13 @@ This file contains reviewer-ready copy for the initial public submission of the 
 - **Expected result shape:** Research brief, source/evidence map, alternatives, hypotheses, and recommended next questions or experiments.
 - **Fixture:** None. Public sources only; no authentication required.
 
+### 7. Select an agent-native delivery boundary
+
+- **Prompt:** `Спроектируй agent-native библиотеку рекомендаций и реши, что переиспользовать, а что генерировать под конкретный датасет.`
+- **Expected behavior:** Identify the primary consumer and expensive-to-rediscover knowledge; compare library, skill, tool/service, DSL/IR, pure generation, and hybrid delivery; define stable-kernel and generated-shell candidates; specify capability contracts and structured state; design a matched falsification benchmark without treating token count as the sole objective.
+- **Expected result shape:** An `agent-contract.md`, delivery-mode ADR, reuse-versus-generation boundary, capability examples, and benchmark regimes tied to reopening conditions.
+- **Fixture:** Use Fixture D in [`REVIEW_FIXTURES.md`](REVIEW_FIXTURES.md).
+
 ## Negative test cases
 
 ### 1. Ordinary implementation with an approved specification
@@ -88,9 +96,9 @@ This file contains reviewer-ready copy for the initial public submission of the 
 
 Select all countries and regions supported by the OpenAI Plugins Directory where an individual publisher may lawfully offer this free, skills-only plugin. The plugin has no external service, account, payments, or location-dependent functionality.
 
-## Initial release notes
+## Current release notes
 
-Initial public submission of R&D Blueprint v0.1.0. This skills-only plugin provides an OpenSpec-inspired workflow for technical research and library design: Explore, Propose, Continue, Challenge, Verify, and Archive. It includes evidence classification, delta specifications, architecture decision records, benchmark design, workspace initialization and validation scripts, and Cyrillic-safe document verification guidance. No MCP server, external account, authentication, payment, or reviewer credentials are required.
+R&D Blueprint v0.2.0 makes agent-native delivery a first-class design decision. It compares library, skill, tool/service, DSL/IR, pure generation, and hybrid modes; separates stable verified kernels from generated task-specific shells; adds capability, discovery, composition, structured-state, and verification-economy contracts; and validates the new schema while retaining version 1 workspace compatibility. The OpenSpec-inspired Explore, Propose, Continue, Challenge, Verify, and Archive workflow remains unchanged. No MCP server, external account, authentication, payment, or reviewer credentials are required.
 
 ## Reviewer setup
 

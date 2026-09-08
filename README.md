@@ -1,6 +1,6 @@
 # R&D Blueprint
 
-R&D Blueprint is a spec-driven ChatGPT/Codex plugin that turns a technical idea into an evidence-backed, implementation-ready design blueprint.
+R&D Blueprint is a spec-driven ChatGPT/Codex plugin that turns a technical idea into an evidence-backed, agent-native, implementation-ready design blueprint.
 
 The workflow is inspired by OpenSpec: research findings are captured as explicit artifacts, decisions are traceable, and changes are expressed as deltas rather than silently rewriting the baseline.
 
@@ -9,6 +9,9 @@ The workflow is inspired by OpenSpec: research findings are captured as explicit
 - frames the research question and success criteria;
 - maintains an evidence ledger with source quality and confidence;
 - compares alternatives and records architecture decisions;
+- decides what should be a library, skill, tool/service, DSL, generated solution, or hybrid;
+- separates stable verified kernels from task-specific generated glue;
+- specifies agent capabilities, discovery, composition, state, and correctness oracles;
 - designs falsifiable benchmarks and red-team checks;
 - compiles the result into a detailed design blueprint;
 - validates that the expected artifact set is complete.
@@ -27,6 +30,8 @@ codex plugin add rnd-blueprint@rnd-blueprint
 Start a new chat after installation so the skill is loaded. Example prompts:
 
 - `Исследуй идею библиотеки для инкрементальных вычислений и собери design blueprint.`
+- `Спроектируй agent-native библиотеку рекомендаций: что переиспользовать, а что генерировать.`
+- `Проверь, нужна ли здесь библиотека, skill, MCP/tool, DSL или достаточно codegen.`
 - `Продолжи последнее R&D-исследование.`
 - `Проведи red-team текущей архитектуры.`
 

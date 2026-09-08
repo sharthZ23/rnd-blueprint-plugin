@@ -21,11 +21,13 @@ The artifacts are mutually informative. New evidence may change requirements; be
 
 Use Explore when the problem or solution space is uncertain.
 
-1. Restate the problem, intended users, and why a library or research project may be warranted.
+1. Restate the problem, intended users, and whether the primary consumer of the result is a human, an agent, or both.
 2. Identify adjacent categories, established terminology, and plausible substitutes.
-3. Produce an initial map of competitors, research questions, and unknowns.
-4. Identify the smallest question whose answer could invalidate the project.
-5. End with a proposed change scope or a reason not to proceed.
+3. Identify what knowledge is expensive to rediscover or reverify and what local adaptation is cheap to generate.
+4. Compare a library with a module, skill, tool/service, DSL/IR, generated solution, contribution to an existing project, and a hybrid where each is plausible.
+5. Produce an initial map of competitors, research questions, and unknowns.
+6. Identify the smallest question whose answer could invalidate the project or its proposed delivery mode.
+7. End with a proposed change scope or a reason not to proceed.
 
 Exploration may remain conversational. Persist it when it contains decisions, evidence, or hypotheses that would be costly to rediscover.
 
@@ -39,11 +41,14 @@ Recommended order when starting from a broad idea:
 2. `evidence.csv`: claims and sources discovered during landscape research.
 3. `specs/`: ADDED, MODIFIED, and REMOVED behavioral requirements.
 4. `design.md`: domain model, architecture, API, data contracts, extension points, failure model.
-5. `decisions.md`: ADR-style decisions and alternatives.
-6. `benchmarks.md`: falsification and evaluation protocol.
-7. `tasks.md`: ordered research and implementation work with dependencies and acceptance checks.
+5. `agent-contract.md`: consumer, capabilities, delivery mode, reuse/generation boundary, discovery, composition, state, and verification economy.
+6. `decisions.md`: ADR-style decisions and alternatives.
+7. `benchmarks.md`: falsification and evaluation protocol, including matched reuse-versus-generation regimes when relevant.
+8. `tasks.md`: ordered research and implementation work with dependencies and acceptance checks.
 
 This order is a default, not a phase gate.
+
+If the available turn cannot support a full research-and-synthesis run, prioritize the highest-information decision and persist a coherent checkpoint. Mark unexecuted benchmarks and thin evidence as gaps, keep project status `researching`, and do not create a ceremonial `PASS`. Continue mode should resume from the recorded next action.
 
 ## Continue
 
@@ -59,6 +64,8 @@ Challenge is an adversarial review, not generic criticism.
 
 - Search for a simpler substitute, contrary evidence, and production failures.
 - Test whether the proposed abstraction leaks across backends or workloads.
+- Test whether stable code actually amortizes expensive knowledge or verification; propose generation when reuse adds more discovery, dependency, and adaptation cost than it saves.
+- Test whether a proposed agent tool is too granular to discover efficiently or too broad to inspect and recover.
 - Look for benchmark leakage, weak baselines, unrealistic datasets, and metrics that reward the design by construction.
 - Identify decisions made before evidence and requirements that merely restate implementation.
 - For each serious issue, provide impact, evidence, repair, and a re-verification test.
@@ -73,8 +80,9 @@ Verification checks four traceability chains:
 2. Requirement -> design/API element.
 3. Design claim -> evidence or explicit hypothesis.
 4. Performance claim -> benchmark and acceptance threshold.
+5. Agent capability -> selection policy, executable contract, and correctness oracle.
 
-Also check that tasks cover every accepted requirement and that unresolved high-risk hypotheses appear before dependent implementation tasks.
+Also check the reuse-versus-generation decision against its cost model, that tasks cover every accepted requirement, and that unresolved high-risk hypotheses appear before dependent implementation tasks.
 
 The report must distinguish failures, warnings, and informational gaps. Never declare completion with unresolved failures.
 

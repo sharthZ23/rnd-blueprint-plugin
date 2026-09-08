@@ -7,9 +7,12 @@ These synthetic fixtures contain no private data. Create the listed files in a t
 `rnd/project.yaml`
 
 ```yaml
+schema_version: 2
 project: Incremental Compute
-status: active
+status: researching
 active_change: initial-blueprint
+primary_consumer: both
+delivery_mode: hybrid
 ```
 
 `rnd/changes/initial-blueprint/proposal.md`
@@ -34,6 +37,36 @@ Build a small library that caches pure computations and invalidates dependent re
 - [ ] Compare invalidation strategies
 - [ ] Design benchmark matrix
 - [ ] Compile blueprint
+```
+
+`rnd/changes/initial-blueprint/agent-contract.md`
+
+```markdown
+# Agent contract
+
+## Primary consumer and jobs
+Humans define cache policy; agents may generate dependency wiring.
+
+## Expensive-to-rediscover knowledge
+Invalidation semantics, concurrency guarantees, and correctness oracles.
+
+## Reuse-versus-generation boundary
+Keep cache behavior stable; generate task-local dependency declarations.
+
+## Delivery mode decision
+Hybrid library plus generated integration code.
+
+## Capability contracts
+Typed cache lookup, invalidation, and inspection operations.
+
+## Discovery and progressive disclosure
+Expose a compact capability index; load backend details on demand.
+
+## Composition and state
+Dependency keys and cache version form explicit state.
+
+## Verification and comparison
+Compare pure generation, conventional reuse, skill-assisted reuse, and the hybrid on correctness, tokens, runtime, and change recovery.
 ```
 
 ## Fixture B: incomplete project for Verify mode
@@ -90,3 +123,16 @@ THEN the next lookup MUST recompute the result
 ```
 
 Expected archive outcome: merge the added requirement into the current cache spec, preserve the accepted change history, and update project state.
+
+## Fixture D: agent-native boundary review
+
+Prompt: `Design a recommendation-system toolkit for agents that can build baselines across varied datasets.`
+
+Expected behavior:
+
+- do not assume that every reusable operation belongs in a Python package;
+- identify leakage-safe splits, metric semantics, optimized retrieval, and correctness oracles as stable-kernel candidates;
+- identify schema mapping, feature wiring, experiment configuration, and reports as generated-shell candidates;
+- compare library, skill, tool/service, DSL/IR, pure generation, and hybrid delivery;
+- choose a primary mode only after stating criteria and a falsification benchmark;
+- keep default instructions minimal while documenting unique non-obvious behavior progressively.
